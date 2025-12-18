@@ -1,0 +1,207 @@
+:root{
+  --c: rgba(0,220,255,.95);
+}
+
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  width:100%;
+  margin:0;
+  overflow:hidden; /* يمنع scroll نهائيا */
+}
+body{
+  background:#020612;
+  color:#fff;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.stage{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden; /* يمنع أي overflow */
+  display:grid;
+  place-items:center;
+  isolation:isolate;
+}
+
+.fib-canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-2;
+}
+
+/* vignette باش التركيز فالوسط */
+.vignette{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:
+    radial-gradient(65% 55% at 50% 50%, rgba(0,0,0,0) 0 55%, rgba(0,0,0,.60) 100%);
+  pointer-events:none;
+}
+
+/* CARD */
+.card{
+  width:min(920px, 92vw);
+  padding:32px 22px;
+  text-align:center;
+  border-radius:28px;
+
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  border:1px solid rgba(0,220,255,.18);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.55),
+    0 0 0 1px rgba(255,255,255,.03) inset;
+
+  backdrop-filter: blur(14px);
+}
+
+/* LOGO */
+.logo{
+  position:relative;
+  width:92px; height:92px;
+  margin:0 auto 14px;
+  border-radius:24px;
+  display:grid;
+  place-items:center;
+  background: rgba(0,0,0,.16);
+  border: 1px solid rgba(0,220,255,.30);
+  box-shadow: 0 0 38px rgba(0,220,255,.10);
+}
+.logo .x{
+  font-family:"Orbitron", sans-serif;
+  font-weight:900;
+  letter-spacing:.08em;
+  font-size:46px;
+  color: rgba(0,220,255,.96);
+  text-shadow: 0 0 18px rgba(0,220,255,.25);
+}
+.logo .halo{
+  position:absolute;
+  inset:-14px;
+  border-radius:32px;
+  border: 1px dashed rgba(0,220,255,.22);
+  opacity:.55;
+  animation: spin 10s linear infinite;
+}
+@keyframes spin{ to{transform:rotate(360deg)} }
+
+/* BRAND */
+.brand{
+  margin:0;
+  font-family:"Orbitron", sans-serif;
+  font-weight:900;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-size:clamp(26px,4.6vw,74px);
+  text-shadow: 0 12px 34px rgba(0,0,0,.55);
+}
+.word{
+  background: linear-gradient(90deg, rgba(255,255,255,.70), #fff, rgba(0,220,255,.92), rgba(255,255,255,.70));
+  background-size: 220% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color: transparent;
+  animation: shimmer 3.9s ease-in-out infinite;
+}
+@keyframes shimmer{
+  0%,100%{background-position: 0% 50%}
+  50%{background-position: 100% 50%}
+}
+.accent{
+  color: rgba(0,220,255,.98);
+  text-shadow: 0 0 22px rgba(0,220,255,.26);
+}
+
+/* SUB */
+.sub{
+  margin:12px auto 0;
+  font-family:"Space Grotesk", sans-serif;
+  letter-spacing:.07em;
+  color: rgba(255,255,255,.70);
+  font-size:clamp(12px,1.2vw,16px);
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.sub i{opacity:.40; font-style:normal; margin:0 6px}
+
+/* LINE */
+.line{
+  width:min(560px, 86vw);
+  height:2px;
+  margin:22px auto 16px;
+  background: linear-gradient(90deg, transparent, rgba(0,220,255,.95), transparent);
+  box-shadow: 0 0 18px rgba(0,220,255,.18);
+}
+
+/* Bottom row */
+.bottom{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+/* Chip */
+.chip{
+  position:relative;
+  font-family:"Orbitron", sans-serif;
+  font-weight:700;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-size:clamp(12px,1.2vw,14px);
+  padding:10px 18px;
+  border-radius:999px;
+  border:1px solid rgba(0,220,255,.35);
+  background: rgba(0,0,0,.14);
+  color: rgba(0,220,255,.95);
+  box-shadow: 0 0 24px rgba(0,220,255,.10);
+  overflow:hidden;
+}
+.chip::after{
+  content:"";
+  position:absolute; inset:-2px;
+  transform:translateX(-120%) skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  animation: sweep 4.8s ease-in-out infinite;
+}
+@keyframes sweep{
+  0%,55%{transform:translateX(-120%) skewX(-18deg); opacity:0}
+  60%{opacity:1}
+  100%{transform:translateX(120%) skewX(-18deg); opacity:0}
+}
+
+/* Status */
+.status{
+  font-family:"Space Grotesk", sans-serif;
+  color: rgba(255,255,255,.62);
+  letter-spacing:.06em;
+  font-size: 13px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.dot{
+  width:8px; height:8px;
+  border-radius:999px;
+  background: rgba(0,255,200,.9);
+  box-shadow: 0 0 14px rgba(0,255,200,.25);
+  animation: blink 1.3s ease-in-out infinite;
+}
+@keyframes blink{ 0%,100%{opacity:.35} 50%{opacity:1} }
+
+/* Mobile */
+@media (max-width: 600px){
+  .card{ padding:22px 16px; border-radius:22px; }
+  .brand{ letter-spacing:.14em; font-size:clamp(22px, 7vw, 42px); }
+  .logo{ width:76px; height:76px; border-radius:20px; }
+  .logo .x{ font-size:38px; }
+  .sub{ font-size:12px; gap:6px; }
+  .chip{ padding:9px 14px; letter-spacing:.18em; }
+}
